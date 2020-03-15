@@ -27,3 +27,11 @@ index.htmlの結果を表示するだけ
 |logoutput|logoutput|ログ出力を作成する|
 |upload|-|Upload先フォルダ|
 
+# ビルド時注意点
+* upload.go \
+ファイルアップロード用の関数データがある \
+BACKHTMLがuploadの何もないときに参照HTMLデータの相対パス \
+UPLOADがアップロード先フォルダの相対パス
+* main.go \
+webサーバのベース設定 \
+ポート指定やアクセス制限をかけることが出来る
