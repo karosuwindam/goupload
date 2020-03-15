@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>upload</title>
+        <script>
+            function jsonOutput(str){
+            var output = ""
+            var tmp = JSON.parse(str)
+            for (var i=0; i< tmp.length;i++){
+              output += "<div>"+tmp[i].name+"</div>"
+            }
+            return output
+          }
+          function getJSON() {
+            var req = new XMLHttpRequest();		  // XMLHttpRequest オブジェクトを生成する
+            req.onreadystatechange = function() {		  // XMLHttpRequest オブジェクトの状態が変化した際に呼び出されるイベントハンドラ
+              if(req.readyState == 4 && req.status == 200){ // サーバーからのレスポンスが完了し、かつ、通信が正常に終了した場合
+                  var data = req.responseText;
+                  console.log(data);		          // 取得した JSON ファイルの中身を表示
+                  document.getElementById('jsondata').innerHTML = jsonOutput(data);
+              }
+            };
+            req.open("GET", "/uploadlist", false); // HTTPメソッドとアクセスするサーバーの　URL　を指定
+            req.send(null);					    // 実際にサーバーへリクエストを送信
+          }
+          window.onload = getJSON;
+
+        </script>
+    </head>
+    <body>
+        <form action="/upload/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="up_loadfile" multiple="multiple">
+        <input type="submit" value="send">
+        </form>
+        <div id="jsondata">test</div>
+    </body>
+</html>
